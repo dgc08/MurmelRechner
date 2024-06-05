@@ -43,8 +43,10 @@ Example multiplication code
 tst 0
 --jmp 4
 hlt
+
 ; Decrement the multiplier, done once in an iteration
 dec 0
+
 ; Now decrement the multiplicand and add its content onto registers 2 and 3
 tst 1
 --jmp 8
@@ -53,6 +55,7 @@ dec 1
 inc 2
 inc 3
 jmp 5
+
 ; Move the multiplicand, now stored in the register 2, back to register 1
 tst 2
 --jmp 16

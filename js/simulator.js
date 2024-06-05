@@ -5,21 +5,36 @@ var shouldExecute = false;
 var sleepDuration = 1000;
 
 function updateSpeedLabel() {
-  const freq = 1000 / sleepDuration;
-  document.getElementById('speedLabel').innerText = `${freq} Hz`;
+  if (sleepDuration != 0) {
+    const freq = 1000 / sleepDuration;
+    document.getElementById('speedLabel').innerText = `Instructions/s: ${freq}`;
+  }
+  else {
+    document.getElementById('speedLabel').innerText = 'Instructions/s: MAX';
+  }
 }
 
 function increaseSpeed() {
   sleepDuration = sleepDuration / 2;
-  updateSpeedLabel()
+  if (sleepDuration < 10) {
+    sleepDuration = 0;
+  }
+  updateSpeedLabel();
 }
 
 function decreaseSpeed() {
   if (sleepDuration == 1000) {
     return;
   }
-  sleepDuration *= 2;
-  updateSpeedLabel()
+
+  if (sleepDuration == 0) {
+    sleepDuration = 15.625; // 64 Hz
+  }
+  else {
+    sleepDuration *= 2;
+  }
+
+  updateSpeedLabel();
 }
 
 function resetSpeed() {
@@ -98,18 +113,20 @@ function executeLine() {
 
 async function execute() {
   shouldExecute = true;
-  while (true) {
+  while (shouldExecute) {
     processLine();
+    await sleep(sleepDuration);
     if (!shouldExecute) {
       await sleep(sleepDuration);
       resetSimulator();
-      break;
     }
-    await sleep(sleepDuration);
   }
 }
 
 function sleep(milliseconds) {
+  if (sleepDuration == 0) {
+    return new Promise((resolve) => setTimeout(resolve, 0.1)); // A small delay is needed or the screen won't properly update
+  }
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
