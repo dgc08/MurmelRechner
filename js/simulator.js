@@ -87,8 +87,8 @@ function executeLine() {
       break;
 
     case 'tst':
-      // If register exists and it does not conatin content
-      if (registers[param] != null && !(registers[param] > 0)) line++;
+      // If register doesnt exist or is null, skip next line
+      if (registers[param] == null || registers[param] == 0) line++;
       break;
 
     case 'hlt':
