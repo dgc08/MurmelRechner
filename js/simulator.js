@@ -2,6 +2,31 @@ var registers = [];
 var line = 1;
 var shouldExecute = false;
 
+var sleepDuration = 1000;
+
+function updateSpeedLabel() {
+  const freq = 1000 / sleepDuration;
+  document.getElementById('speedLabel').innerText = `${freq} Hz`;
+}
+
+function increaseSpeed() {
+  sleepDuration = sleepDuration / 2;
+  updateSpeedLabel()
+}
+
+function decreaseSpeed() {
+  if (sleepDuration == 1000) {
+    return;
+  }
+  sleepDuration *= 2;
+  updateSpeedLabel()
+}
+
+function resetSpeed() {
+  sleepDuration = 1000;
+  updateSpeedLabel();
+}
+
 function processLine() {
   pointer.style.color = '#04aa6d';
   return executeLine();
@@ -23,7 +48,7 @@ function executeLine() {
   // setup pointer
   const pointer = document.getElementById('pointer');
 
-  const content = code[line - 1];
+  const content = code[line - 1]
   const cmd = content.substring(0, 3);
   const param = parseInt(content.substring(3, content.length));
 
@@ -48,7 +73,7 @@ function executeLine() {
 
     case 'tst':
       // If register exists and it does not conatin content
-      if (registers[param - 1] != null && !(registers[param - 1] > 0)) line++;
+      if (registers[param] != null && !(registers[param] > 0)) line++;
       break;
 
     case 'hlt':
@@ -56,11 +81,11 @@ function executeLine() {
       return;
 
     case 'inc':
-      addToRegister(param - 1);
+      addToRegister(param);
       break;
 
     case 'dec':
-      removeFromRegister(param - 1);
+      removeFromRegister(param);
       break;
 
     default:
@@ -76,11 +101,11 @@ async function execute() {
   while (true) {
     processLine();
     if (!shouldExecute) {
-      await sleep(1000);
+      await sleep(sleepDuration);
       resetSimulator();
       break;
     }
-    await sleep(1000);
+    await sleep(sleepDuration);
   }
 }
 
@@ -89,8 +114,8 @@ function sleep(milliseconds) {
 }
 
 function resetSimulator() {
-  shouldExecute = false;
   line = 1;
+  shouldExecute = false;
   pointer.style.top = '-4pt';
   pointer.style.color = 'red';
 }

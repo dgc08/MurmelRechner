@@ -80,6 +80,9 @@
         <a><i class="fas fa-play fa-2x" onclick="execute();"></i></a>
         <a><i class="fas fa-arrow-circle-right fa-2x" onclick="shouldExecute=true; processLine(); if (!shouldExecute)resetSimulator();"></i></a>
         <a><i class="fas fa-hand-paper fa-2x" onclick="resetSimulator();"></i></a>
+        <a><i class="fas fa-minus fa-2x" onclick="decreaseSpeed();"></i></a>
+        <a><i class="fas fa-plus fa-2x" onclick="increaseSpeed();"></i></a>
+        <a><span id="speedLabel" onclick="resetSpeed();" style="cursor: pointer; font-size: 1.5em; color: white;">1 Hz</span></a>
         <a target="_blank" rel="noopener noreferrer" id="peerAdress"></a>
         <a id="collaborationButton"><i onclick="createCollaboration();" class="fas fa-user-plus fa-2x"></i></a>
         <a><i id="fullscreen" onclick="toggleFullscreen();" class="fas fa-expand fa-2x"></i></a>
