@@ -58,7 +58,7 @@ function executeLine() {
 
   for (let i = 0; i < lines.length; i++) {
     const lineContent = lines[i];
-    if (lineContent != '') linesOfCode++; // check if this line is code
+    if (lineContent != '' && !lineContent.startsWith(';')) linesOfCode++; // check if this line is code
     if (linesOfCode == line) {
       pointer.style.top = i * 20 - 4 + 'pt';
       break;

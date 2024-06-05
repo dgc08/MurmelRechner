@@ -27,6 +27,11 @@
     color: #dc143c;
 }
 
+.format-comment {
+  color: grey;
+}
+
+
 .format-error {
     text-decoration-line: underline;
     text-decoration-style: wavy;

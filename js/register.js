@@ -18,6 +18,8 @@ function addRegister() {
 function removeRegister() {
     const registerParent = document.getElementById('scroll-left');
     registerParent.removeChild(registerParent.lastElementChild);
+
+    registers.pop(); // Remove value
 }
 
 function addToRegister(index) {

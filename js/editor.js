@@ -49,6 +49,14 @@ function update() {
         match: /^(hlt)/,
       },
       {
+        name: 'format-comment',
+        match: [/^;(.*)/, '<span class="format-comment">;</span>', ''],
+      },
+      {
+        name: 'format-comment',
+        match: [/^(\s*)^;(.*)/, '<span class="format-comment"> ;</span>', ''],
+      },
+      {
         name: 'format-none',
         match: /^(&#10;)/,
       },
@@ -74,7 +82,7 @@ function update() {
   // add line number for every line that is not empty
   let counter = 1;
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i] != '') {
+    if (lines[i] != '' && !lines[i].startsWith(';')) {
       linenums.value += counter + '\n';
       counter++;
     } else {
