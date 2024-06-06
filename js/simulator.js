@@ -65,7 +65,21 @@ function executeLine() {
 
   const content = code[line - 1]
   const cmd = content.substring(0, 3);
-  const param = parseInt(content.substring(3, content.length));
+
+  // Dereference any pointers
+  param = content.substring(3, content.length).trim();
+  derefs = 0;
+  while (param.charAt() == '*') {
+    derefs++;
+    param = param.substring(1, content.length);
+  }
+  param = parseInt(param);
+  while (derefs > 0) {
+    newParam = registers[param];
+    if (newParam == null) newParam = 0;
+    param = newParam;
+    derefs--;
+  }
 
   // set pointer to line
   const lines = document.getElementById('editing').value.split('\n');

@@ -1,7 +1,7 @@
 function cleanCode() {
   const textarea = document.getElementById('editing');
 
-  const regex = /inc [0-9]+|dec [0-9]+|tst [0-9]+|jmp [0-9]+|hlt|\n|(?:;.*)/g;
+  const regex = /inc \**([0-9]+)|dec \**([0-9]+)|tst \**([0-9]+)|jmp \**([0-9]+)|hlt|\n|(?:;.*)/g;
   let matches = textarea.value.match(regex);
 
   // remove empty lines that get produced if regex not matches
@@ -51,7 +51,7 @@ function cleanCode() {
 function getCleanCode(code) {
   const textarea = document.getElementById('editing');
 
-  const regex_code = /inc [0-9]+|dec [0-9]+|tst [0-9]+|jmp [0-9]+|hlt/g;
+  const regex_code = /inc \**([0-9]+)|dec \**([0-9]+)|tst \**([0-9]+)|jmp \**([0-9]+)|hlt/g;
   const matches = textarea.value.match(regex_code);
 
   return matches;

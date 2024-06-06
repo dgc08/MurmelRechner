@@ -30,19 +30,19 @@ function update() {
     patterns: [
       {
         name: 'format-register-number',
-        match: [/^inc ([0-9]+)/, '<span class="format-inc">inc </span>', ''],
+        match: [/^inc (\**([0-9]+))/, '<span class="format-inc">inc </span>', ''],
       },
       {
         name: 'format-register-number',
-        match: [/^dec ([0-9]+)/, '<span class="format-dec">dec </span>', ''],
+        match: [/^dec (\**([0-9]+))/, '<span class="format-dec">dec </span>', ''],
       },
       {
         name: 'format-register-number',
-        match: [/^tst ([0-9]+)/, '<span class="format-tst">tst </span>', ''],
+        match: [/^tst (\**([0-9]+))/, '<span class="format-tst">tst </span>', ''],
       },
       {
         name: 'format-line-number',
-        match: [/^jmp ([0-9]+)/, '<span class="format-jmp">jmp </span> ', ''],
+        match: [/^jmp (\**([0-9]+))/, '<span class="format-jmp">jmp </span> ', ''],
       },
       {
         name: 'format-hlt',
