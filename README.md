@@ -44,7 +44,7 @@ Enable the collaboration mode to work with others at the same time
 ```
 ; As long as the multiplier is not 0, continue with the program
 tst 0
---jmp 4
+--jmp 3
 hlt
 
 ; Decrement the multiplier, done once per iteration
@@ -52,20 +52,20 @@ dec 0
 
 ; Decrement the multiplicand until it's 0  and add its content onto registers 2 and 3
 tst 1
---jmp 8
-jmp 12
+--jmp 7
+jmp 11
 dec 1
 inc 2
 inc 3
-jmp 5
+jmp 4
 
 ; Move the multiplicand, now stored in register 2, back to register 1
 tst 2
---jmp 16
-jmp 1
+--jmp 15
+jmp 0
 ; move complete, go to next iteration
-jmp 1
+jmp 0
 dec 2
 inc 1
-jmp 12
+jmp 11
 ```

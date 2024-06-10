@@ -80,7 +80,7 @@ function update() {
   linenums.value = '';
 
   // add line number for every line that is not empty
-  let counter = 1;
+  let counter = 0;
   for (let i = 0; i < lines.length; i++) {
     if (lines[i] != '' && !lines[i].startsWith(';')) {
       linenums.value += counter + '\n';

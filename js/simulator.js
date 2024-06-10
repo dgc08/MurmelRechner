@@ -1,5 +1,5 @@
 var registers = [];
-var line = 1;
+var line = 0;
 var shouldExecute = false;
 
 var sleepDuration = 1000;
@@ -63,7 +63,7 @@ function executeLine() {
   // setup pointer
   const pointer = document.getElementById('pointer');
 
-  const content = code[line - 1]
+  const content = code[line - 1];
   const cmd = content.substring(0, 3);
   const param = parseInt(content.substring(3, content.length));
 
@@ -83,7 +83,7 @@ function executeLine() {
   // evaluate code
   switch (cmd) {
     case 'jmp':
-      line = param - 1;
+      line = param;
       break;
 
     case 'tst':
@@ -116,22 +116,20 @@ async function execute() {
   while (shouldExecute) {
     processLine();
     await sleep(sleepDuration);
-    if (!shouldExecute) {
-      await sleep(sleepDuration);
-      resetSimulator();
-    }
   }
+  await sleep(sleepDuration);
+  resetSimulator();
 }
 
 function sleep(milliseconds) {
   if (sleepDuration == 0) {
-    return new Promise((resolve) => setTimeout(resolve, 0.1)); // A small delay is needed or the screen won't properly update
+    return new Promise((resolve) => setTimeout(resolve, 0)); // A small delay is needed or the screen won't properly update (for some reason putting 0 here works, javascript kinda strange)
   }
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
 function resetSimulator() {
-  line = 1;
+  line = 0;
   shouldExecute = false;
   pointer.style.top = '-4pt';
   pointer.style.color = 'red';
