@@ -55,7 +55,7 @@ function executeLine() {
     shouldExecute = false;
     return;
   }
-  if (line > code.length) {
+  if (line > code.length-1) {
     shouldExecute = false;
     return;
   }
@@ -63,7 +63,7 @@ function executeLine() {
   // setup pointer
   const pointer = document.getElementById('pointer');
 
-  const content = code[line - 1];
+  const content = code[line];
   const cmd = content.substring(0, 3);
   const param = parseInt(content.substring(3, content.length));
 
@@ -74,7 +74,7 @@ function executeLine() {
   for (let i = 0; i < lines.length; i++) {
     const lineContent = lines[i];
     if (lineContent != '' && !lineContent.startsWith(';')) linesOfCode++; // check if this line is code
-    if (linesOfCode == line) {
+    if (linesOfCode-1 == line) {
       pointer.style.top = i * 20 - 4 + 'pt';
       break;
     }
@@ -84,11 +84,16 @@ function executeLine() {
   switch (cmd) {
     case 'jmp':
       line = param;
-      break;
+      return;
 
     case 'tst':
-      // If register doesnt exist or is null, skip next line
-      if (registers[param] == null || registers[param] == 0) line++;
+    checkRegisterCount(param);
+      if (registers[param]==0)
+        line++;
+      if (registers[param] == null){
+        line++;
+        registers[param] = 0;
+      }
       break;
 
     case 'hlt':
@@ -117,7 +122,6 @@ async function execute() {
     processLine();
     await sleep(sleepDuration);
   }
-  await sleep(sleepDuration);
   resetSimulator();
 }
 
