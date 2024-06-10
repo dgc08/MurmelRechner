@@ -57,7 +57,7 @@ function generateFlowChartCode() {
   code = `start=>start: Start\n`;
 
   source.forEach((cmd, index) => {
-    const line = index + 1;
+    const line = index;
     let nodetype = 'operation';
 
     if (cmd.startsWith('dec')) {
@@ -75,7 +75,7 @@ function generateFlowChartCode() {
 
   code += `\nstart->node1\n`;
   source.forEach((cmd, index) => {
-    const line = index + 1;
+    const line = index;
 
     if (cmd.startsWith('tst')) {
       code += `node${line}(yes)->node${line + 1}\n`;

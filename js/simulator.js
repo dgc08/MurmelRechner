@@ -1,5 +1,5 @@
 var registers = [];
-var line = 1;
+var line = 0;
 var shouldExecute = false;
 
 var sleepDuration = 1000;
@@ -63,7 +63,7 @@ function executeLine() {
   // setup pointer
   const pointer = document.getElementById('pointer');
 
-  const content = code[line - 1]
+  const content = code[line];
   const cmd = content.substring(0, 3);
 
   // Dereference any pointers
@@ -88,7 +88,7 @@ function executeLine() {
   for (let i = 0; i < lines.length; i++) {
     const lineContent = lines[i];
     if (lineContent != '' && !lineContent.startsWith(';')) linesOfCode++; // check if this line is code
-    if (linesOfCode == line) {
+    if (linesOfCode-1 == line) {
       pointer.style.top = i * 20 - 4 + 'pt';
       break;
     }
@@ -97,12 +97,17 @@ function executeLine() {
   // evaluate code
   switch (cmd) {
     case 'jmp':
-      line = param - 1;
-      break;
+      line = param;
+      return
 
     case 'tst':
-      // If register doesnt exist or is null, skip next line
-      if (registers[param] == null || registers[param] == 0) line++;
+    checkRegisterCount(param);
+      if (registers[param]==0)
+        line++;
+      if (registers[param] == null){
+        line++;
+        registers[param] = 0;
+      }
       break;
 
     case 'hlt':
@@ -130,22 +135,20 @@ async function execute() {
   while (shouldExecute) {
     processLine();
     await sleep(sleepDuration);
-    if (!shouldExecute) {
-      await sleep(sleepDuration);
-      resetSimulator();
-    }
   }
+  await sleep(sleepDuration);
+  resetSimulator();
 }
 
 function sleep(milliseconds) {
   if (sleepDuration == 0) {
-    return new Promise((resolve) => setTimeout(resolve, 0.1)); // A small delay is needed or the screen won't properly update
+    return new Promise((resolve) => setTimeout(resolve, 0)); // A small delay is needed or the screen won't properly update (for some reason putting 0 here works, javascript kinda strange)
   }
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
 function resetSimulator() {
-  line = 1;
+  line = 0;
   shouldExecute = false;
   pointer.style.top = '-4pt';
   pointer.style.color = 'red';
