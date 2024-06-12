@@ -55,7 +55,7 @@ function executeLine() {
     shouldExecute = false;
     return;
   }
-  if (line > code.length) {
+  if (line > code.length-1) {
     shouldExecute = false;
     return;
   }
