@@ -21,6 +21,8 @@ The pull request doesn't include [pointers](#pointers) though
 - Added options to control the speed of execution (Come on, 1 instruction/s is REALLY SLOW)
 
 ### Pointers
+I'D NOT RECOMMEND TO USE POINTERS, AS THEY AREN'T INCLUDED IN THE ORIGINAL BONSAI COMPUTER!
+
 I added pointers to the instruction set, which allows for more sophisticated programs (For example my [implementation of Bonsai within Bonsai!](https://github.com/dgc08/murmel-plusplus/blob/master/examples/self_implementation.murpp)) and even stuff like the stack you know from traditional computer architechtures
 
 Pointers essentially let you treat the value in aregisters as an adresses. So if you for example do `inc *1`, instead of increasing 1 the emulator looks up what value is saved in 1 and increase that register instead.
