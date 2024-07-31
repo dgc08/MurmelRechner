@@ -7,10 +7,12 @@ https://dgc08.github.io/MurmelRechner/
 Also make sure to check [Murmel++](https://github.com/dgc08/murmel-plusplus) out!
 It contains a faster Bonsai emulator written in C++ if this is too slow for you, and 'murpp' (Yes i know stupid name, it stands for MURmelPlusPLus), which is just an assembly-like abstraction for Bonsai assembly
 (It is essentially a kind of programming language for Bonsai/Murmel)
-    
+
+If you want a program to try, try [calculator.murpp](https://github.com/dgc08/murmel-plusplus/blob/master/examples/calculator.murpp). You can find usage instructions in the comment and the working assembly in [calculator.mur](https://github.com/dgc08/murmel-plusplus/blob/master/examples/calculator.mur).
+
 ## About this fork
 I forked this repository from https://github.com/FelixSelter/MurmelRechner
-Felix Selter doesn't seem to maintain his repository anymore, and because there are some crucial features missing on his branch, so I made this fork
+Felix Selter doesn't seem to maintain his repository anymore, and because there are some crucial features missing on his branch, I made this fork
 
 ### Minor changes on this branch
 If you want to see a more detailed change log, see [my pull request on the original repository](https://github.com/FelixSelter/MurmelRechner/pull/1). 
@@ -21,7 +23,9 @@ The pull request doesn't include [pointers](#pointers) though
 - Added options to control the speed of execution (Come on, 1 instruction/s is REALLY SLOW)
 
 ### Pointers
-I'D NOT RECOMMEND TO USE POINTERS, AS THEY AREN'T INCLUDED IN THE ORIGINAL BONSAI COMPUTER!
+I'D NOT RECOMMEND TO USE POINTERS, AS THEY AREN'T INCLUDED IN THE ORIGINAL BONSAI COMPUTER! (Even though there are some arguments to justifiy like a `lea`-instruction)
+
+In the murbin standart treats pointers as 4 extra instruction, so you have an `inc*`, `dec*` and so on later in the binary (not in the code, in the code you'd write `inc *someAdress` or `jmp *someAdress`).
 
 I added pointers to the instruction set, which allows for more sophisticated programs (For example my [implementation of Bonsai within Bonsai!](https://github.com/dgc08/murmel-plusplus/blob/master/examples/self_implementation.murpp)) and even stuff like the stack you know from traditional computer architechtures
 
@@ -29,7 +33,7 @@ Pointers essentially let you treat the value in aregisters as an adresses. So if
 
 Make sure to only use pointers when you really need to, as I found no other Bonsai emulator / interpreter that does this and it isn't included in the original instruction set.
 If you want to use pointers, I'd recommend to not use double pointers. Instructions like `inc ****0` would be valid here, but not even all of my emulators implement nested pointers per se.
-You can however still manually dereference nested pointers by copying them around, if you want to target all pointer emulations
+You can however still manually dereference nested pointers by copying them around, if you want to target all pointer implementations.
 
 My [implementation of Bonsai within Bonsai](https://github.com/dgc08/murmel-plusplus/blob/master/examples/self_implementation.murpp) for example originally worked with nested pointers, but I changed it to use the 'manually dereference' method to allow it to run itself
 
