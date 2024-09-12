@@ -25,14 +25,15 @@ The pull request doesn't include [pointers](#pointers) though
 ### Pointers
 I'D NOT RECOMMEND TO USE POINTERS, AS THEY AREN'T INCLUDED IN THE ORIGINAL BONSAI COMPUTER! (Even though there are some arguments to justifiy like a `lea`-instruction)
 
-In the murbin standart treats pointers as 4 extra instruction, so you have an `inc*`, `dec*` and so on later in the binary (not in the code, in the code you'd write `inc *someAdress` or `jmp *someAdress`).
 
 I added pointers to the instruction set, which allows for more sophisticated programs (For example my [implementation of Bonsai within Bonsai!](https://github.com/dgc08/murmel-plusplus/blob/master/examples/self_implementation.murpp)) and even stuff like the stack you know from traditional computer architechtures
 
 Pointers essentially let you treat the value in aregisters as an adresses. So if you for example do `inc *1`, instead of increasing 1 the emulator looks up what value is saved in 1 and increase that register instead.
 
+The Murbin VM/Murbin standard treats pointers as 4 extra instructions of the instruction set, so you have an `inc*`, `dec*` and so on later in the binary (not in the code, in the code you'll write `inc *someAdress` or `jmp *someAdress` or it won't work).
+
 Make sure to only use pointers when you really need to, as I found no other Bonsai emulator / interpreter that does this and it isn't included in the original instruction set.
-If you want to use pointers, I'd recommend to not use double pointers. Instructions like `inc ****0` would be valid here, but not even all of my emulators implement nested pointers per se.
+If you want to use pointers, I'd recommend to not use double pointers. Instructions like `inc ****0` would be valid here, but not even all of my emulators implement nested pointers.
 You can however still manually dereference nested pointers by copying them around, if you want to target all pointer implementations.
 
 My [implementation of Bonsai within Bonsai](https://github.com/dgc08/murmel-plusplus/blob/master/examples/self_implementation.murpp) for example originally worked with nested pointers, but I changed it to use the 'manually dereference' method to allow it to run itself
